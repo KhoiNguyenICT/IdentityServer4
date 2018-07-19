@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using Google.Common.Constants;
+using Google.Model;
+using Google.Model.Entities;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.AccessTokenValidation;
@@ -32,6 +34,10 @@ namespace Google.Application.Configurations.Systems
                 options.Password.RequiredLength = 6;
             });
 
+            services.AddIdentity<Account, IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddIdentityServer(options =>
                 {
                     options.IssuerUri = configuration.GetValue<string>(ConfigurationKeys.WebHostUrl);
@@ -40,9 +46,9 @@ namespace Google.Application.Configurations.Systems
                 .AddInMemoryIdentityResources(GetIdentityResources())
                 .AddInMemoryApiResources(GetApiResources())
                 .AddInMemoryClients(GetClients())
-                .AddTestUsers(GetTestUsers());
-            //.AddAspNetIdentity<Account>()
-            //.AddProfileService<ProfileService>();
+                //.AddTestUsers(GetTestUsers())
+                .AddAspNetIdentity<Account>()
+                .AddProfileService<ProfileService>();
 
             services.AddAuthentication(options =>
             {
@@ -115,7 +121,7 @@ namespace Google.Application.Configurations.Systems
                     Password = "DigiMed@123",
                     Claims = new List<Claim> {
                         new Claim(JwtClaimTypes.Email, "test@digimed.vn"),
-                        new Claim(JwtClaimTypes.Role, RoleNames.Admin)
+                        new Claim(JwtClaimTypes.Role, Roles.Administrator)
                     },
                     IsActive = true
                 }
