@@ -1,0 +1,27 @@
+﻿[
+  {
+    "name": "Music",
+    "description": "Music",
+    "createdBy": {
+      "firstName": "Admin",
+      "lastName": "Super",
+      "profileImageUrl": "",
+      "isActive": "true"
+    },
+    "channels": [
+      {
+        "name": "KPop",
+        "description": "KPop",
+        "email": "kpop@google.com",
+        "hyperLink": "google.com"
+      }
+    ],
+    "playlists": [
+      {
+        "name": "KPop Dance",
+        "description": "KPop Dance",
+        "playListStatusType": "1" 
+      }
+    ] 
+  }
+]
