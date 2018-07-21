@@ -163,28 +163,6 @@ namespace Google.Application.Migrations
                     b.ToTable("Channels");
                 });
 
-            modelBuilder.Entity("Google.Model.Entities.ChannelCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CategoryId");
-
-                    b.Property<Guid>("ChannelId");
-
-                    b.Property<DateTime>("CreatedDate");
-
-                    b.Property<DateTime>("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ChannelId");
-
-                    b.ToTable("ChannelCategories");
-                });
-
             modelBuilder.Entity("Google.Model.Entities.Comment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -229,6 +207,30 @@ namespace Google.Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ConfigurationValues");
+                });
+
+            modelBuilder.Entity("Google.Model.Entities.Log", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Application");
+
+                    b.Property<string>("Callsite");
+
+                    b.Property<string>("Exception");
+
+                    b.Property<string>("Level");
+
+                    b.Property<string>("Logged");
+
+                    b.Property<string>("Logger");
+
+                    b.Property<string>("Message");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Google.Model.Entities.Playlist", b =>
@@ -521,21 +523,8 @@ namespace Google.Application.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Google.Model.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("Channels")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Google.Model.Entities.ChannelCategory", b =>
-                {
-                    b.HasOne("Google.Model.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Google.Model.Entities.Channel", "Channel")
-                        .WithMany()
-                        .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

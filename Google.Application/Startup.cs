@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Google.Application.Configurations.Systems;
+﻿using Google.Application.Configurations.Systems;
 using Google.Common.Constants;
 using Google.Model;
 using Google.Service.Implementations;
 using Google.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
 
 namespace Google.Application
 {
@@ -37,6 +35,10 @@ namespace Google.Application
 
             services.ConfigureIdentityService(Configuration, _environment);
             ConfigIoc(services);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v2", new Info { Title = "ICP APIs", Version = "2.0.0" });
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -57,16 +59,24 @@ namespace Google.Application
             app.UseIdentityServer();
             app.UseAuthentication();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "ICP API V2");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Authentication}/{action=Login}/{id?}");
             });
         }
 
         public void ConfigIoc(IServiceCollection services)
         {
+            services.AddSingleton<HttpClient>();
+            services.AddSingleton<WebClient>();
             services.AddScoped<AppInitializer>();
             services.AddScoped<IChannelService, ChannelService>();
         }

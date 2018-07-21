@@ -1,6 +1,8 @@
-﻿namespace Google.Service.Interfaces
+﻿using Google.Service.Dtos.Comment;
+
+namespace Google.Service.Interfaces
 {
-    public interface ICommentService
+    public interface ICommentService: IService<CommentDto>
     {
     }
 }

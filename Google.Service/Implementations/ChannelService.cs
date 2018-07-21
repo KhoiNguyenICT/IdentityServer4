@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Google.Service.Dtos.Channel;
 
 namespace Google.Service.Implementations
 {

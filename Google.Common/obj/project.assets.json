@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Job\\CSharp\\Google\\Google.Common\\Google.Common.csproj",
+      "projectUniqueName": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Common\\Google.Common.csproj",
       "projectName": "Google.Common",
-      "projectPath": "D:\\Job\\CSharp\\Google\\Google.Common\\Google.Common.csproj",
+      "projectPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Common\\Google.Common.csproj",
       "packagesPath": "C:\\Users\\KhoiNguyenICT\\.nuget\\packages\\",
-      "outputPath": "D:\\Job\\CSharp\\Google\\Google.Common\\obj\\",
+      "outputPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Common\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

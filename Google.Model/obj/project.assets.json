@@ -4020,11 +4020,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Job\\CSharp\\Google\\Google.Model\\Google.Model.csproj",
+      "projectUniqueName": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Model\\Google.Model.csproj",
       "projectName": "Google.Model",
-      "projectPath": "D:\\Job\\CSharp\\Google\\Google.Model\\Google.Model.csproj",
+      "projectPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Model\\Google.Model.csproj",
       "packagesPath": "C:\\Users\\KhoiNguyenICT\\.nuget\\packages\\",
-      "outputPath": "D:\\Job\\CSharp\\Google\\Google.Model\\obj\\",
+      "outputPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4043,8 +4043,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Job\\CSharp\\Google\\Google.Common\\Google.Common.csproj": {
-              "projectPath": "D:\\Job\\CSharp\\Google\\Google.Common\\Google.Common.csproj"
+            "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Common\\Google.Common.csproj": {
+              "projectPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Common\\Google.Common.csproj"
             }
           }
         }

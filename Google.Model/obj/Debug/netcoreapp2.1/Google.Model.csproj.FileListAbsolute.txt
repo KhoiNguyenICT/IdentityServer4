@@ -10,3 +10,15 @@ D:\Job\CSharp\Google\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.pdb
 D:\Job\CSharp\Google\Google.Model\bin\Debug\netcoreapp2.1\Google.Common.dll
 D:\Job\CSharp\Google\Google.Model\bin\Debug\netcoreapp2.1\Google.Common.pdb
 D:\Job\CSharp\Google\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.csproj.CopyComplete
+D:\Job\CSharp\Google\Google.BE\Google.Model\bin\Debug\netcoreapp2.1\Google.Model.deps.json
+D:\Job\CSharp\Google\Google.BE\Google.Model\bin\Debug\netcoreapp2.1\Google.Model.dll
+D:\Job\CSharp\Google\Google.BE\Google.Model\bin\Debug\netcoreapp2.1\Google.Model.pdb
+D:\Job\CSharp\Google\Google.BE\Google.Model\bin\Debug\netcoreapp2.1\Google.Common.dll
+D:\Job\CSharp\Google\Google.BE\Google.Model\bin\Debug\netcoreapp2.1\Google.Common.pdb
+D:\Job\CSharp\Google\Google.BE\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.csprojAssemblyReference.cache
+D:\Job\CSharp\Google\Google.BE\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.csproj.CoreCompileInputs.cache
+D:\Job\CSharp\Google\Google.BE\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.AssemblyInfoInputs.cache
+D:\Job\CSharp\Google\Google.BE\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.AssemblyInfo.cs
+D:\Job\CSharp\Google\Google.BE\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.csproj.CopyComplete
+D:\Job\CSharp\Google\Google.BE\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.dll
+D:\Job\CSharp\Google\Google.BE\Google.Model\obj\Debug\netcoreapp2.1\Google.Model.pdb
