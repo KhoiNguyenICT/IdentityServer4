@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Google.Common.Enums;
+﻿using Google.Common.Enums;
 using Google.Service.Dtos.Account;
 using Google.Service.Dtos.Playlist;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Google.Service.Dtos.Channel;
 
 namespace Google.Service.Dtos.Video
 {
-    public class VideoDto
+    public class VideoDto : BaseDto
     {
         [Required]
         [StringLength(255)]
@@ -20,8 +21,15 @@ namespace Google.Service.Dtos.Video
         public int DislikeCount { get; set; }
         public TimeSpan VideoDuration { get; set; }
         public VideoStatusType VideoStatusType { get; set; }
+
+        [Required]
+        public Guid ChannelId { get; set; }
+
+        public virtual ChannelDto Channel { get; set; }
+
         public virtual ICollection<PlaylistDto> Playlists { get; set; }
 
+        [Required]
         public Guid AccountId { get; set; }
 
         public virtual AccountDto CreatedBy { get; set; }

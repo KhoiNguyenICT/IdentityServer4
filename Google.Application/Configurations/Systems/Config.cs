@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,8 +35,10 @@ namespace Google.Application.Configurations.Systems
                 options.Password.RequiredLength = 6;
             });
 
-            services.AddIdentity<Account, IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<AppDbContext>()
+            services
+                .AddIdentity<Account, ApplicationRole>()
+                .AddUserStore<UserStore<Account, ApplicationRole, AppDbContext, Guid, IdentityUserClaim<Guid>, AccountRole, IdentityUserLogin<Guid>, IdentityUserToken<Guid>, IdentityRoleClaim<Guid>>>()
+                .AddRoleStore<RoleStore<ApplicationRole, AppDbContext, Guid, AccountRole, IdentityRoleClaim<Guid>>>()
                 .AddDefaultTokenProviders();
 
             services.AddIdentityServer(options =>

@@ -17,5 +17,7 @@ namespace Google.Model.Entities
 
         [ForeignKey("PlaylistId")]
         public virtual Playlist Playlist { get; set; }
+
+        public int Order { get; set; }
     }
 }

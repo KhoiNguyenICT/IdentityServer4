@@ -21,23 +21,27 @@ namespace Google.Application.Configurations.Systems
         private readonly IConfiguration _configuration;
         private readonly AppDbContext _context;
         private readonly IChannelService _channelService;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
         public AppInitializer(
             IConfiguration configuration,
             AppDbContext context, 
             UserManager<Account> userManager, 
-            IChannelService channelService)
+            IChannelService channelService, 
+            RoleManager<ApplicationRole> roleManager)
         {
             _configuration = configuration;
             _context = context;
             _userManager = userManager;
             _channelService = channelService;
+            _roleManager = roleManager;
         }
 
         public async Task InitAsync()
         {
             await _context.Database.MigrateAsync();
-            await InitAccount();
+            await CreateRoles();
+            await CreateDefaultAdminAccount();
         }
 
         private string CreatePath(string jsonFile)
@@ -45,7 +49,28 @@ namespace Google.Application.Configurations.Systems
             return "Configurations/Initializes/" + jsonFile;
         }
 
-        private async Task InitAccount()
+        private async Task CreateRoles()
+        {
+            var currentRoles = await _roleManager.Roles.Select(t => t.Name).ToListAsync();
+            var roles = typeof(Roles).GetTypeInfo()
+                .GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly)
+                .Select(t =>
+                {
+                    var name = t.GetValue(null) as string;
+                    return new ApplicationRole()
+                    {
+                        Name = name
+                    };
+                });
+            foreach (var item in roles)
+            {
+                if (currentRoles.Contains(item.Name))
+                    continue;
+                await _roleManager.CreateAsync(item);
+            }
+        }
+
+        private async Task CreateDefaultAdminAccount()
         {
             var account = _configuration.GetSection("DefaultAdminAccount").Get<Account>();
             if (account is null)
@@ -58,8 +83,8 @@ namespace Google.Application.Configurations.Systems
             {
                 return;
             }
-            var result = await _userManager.CreateAsync(account, _configuration["DefaultAdminAccount:Password"]);
-            result = await _userManager.AddToRoleAsync(account, Roles.Administrator);
+            await _userManager.CreateAsync(account, _configuration["DefaultAdminAccount:Password"]);
+            await _userManager.AddToRoleAsync(account, Roles.Administrator);
         }
     }
 }

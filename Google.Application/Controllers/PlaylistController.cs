@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Google.Common.Cores;
 using Google.Service.Dtos.Comment;
 using Google.Service.Dtos.Playlist;
 using Google.Service.Interfaces;
@@ -10,10 +12,14 @@ namespace Google.Application.Controllers
     public class PlaylistController : GoogleController
     {
         private readonly IPlaylistService _playlistService;
+        private readonly IVideoPlaylistService _videoPlaylistService;
 
-        public PlaylistController(IPlaylistService playlistService)
+        public PlaylistController(
+            IPlaylistService playlistService, 
+            IVideoPlaylistService videoPlaylistService)
         {
             _playlistService = playlistService;
+            _videoPlaylistService = videoPlaylistService;
         }
 
         [HttpGet("{id}")]
@@ -41,6 +47,19 @@ namespace Google.Application.Controllers
         public async Task<IActionResult> Update(PlaylistDto dto)
         {
             await _playlistService.Update(dto);
+            return Ok();
+        }
+
+        [HttpGet("query")]
+        public async Task<IActionResult> Query(string channelId, int take = 20, int skip = 0)
+        {
+            return Ok();
+        }
+
+        [HttpPut("reOrder")]
+        public async Task<IActionResult> ReOrderVideo(PlaylistReOrderVideoDto playlistReOrderVideoDto)
+        {
+            await _videoPlaylistService.ReOrder(playlistReOrderVideoDto);
             return Ok();
         }
     }

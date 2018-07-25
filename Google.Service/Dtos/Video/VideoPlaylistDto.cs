@@ -15,5 +15,7 @@ namespace Google.Service.Dtos.Video
         public virtual VideoDto Video { get; set; }
 
         public virtual PlaylistDto Playlist { get; set; }
+
+        public int Order { get; set; }
     }
 }

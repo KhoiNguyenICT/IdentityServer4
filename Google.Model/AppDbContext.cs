@@ -6,13 +6,15 @@ using System;
 
 namespace Google.Model
 {
-    public class AppDbContext : IdentityDbContext<Account, IdentityRole<Guid>, Guid>
+    public class AppDbContext : IdentityDbContext<Account, ApplicationRole, Guid>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<AccountRole> AccountRoles { get; set; }
+        public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryTag> CategoryTags { get; set; }
         public virtual DbSet<Channel> Channels { get; set; }

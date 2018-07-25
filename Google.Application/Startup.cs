@@ -13,6 +13,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using AutoMapper;
+using Google.Common.Extensions;
+using Google.Service.Mappers;
 
 namespace Google.Application
 {
@@ -78,7 +81,20 @@ namespace Google.Application
             services.AddSingleton<HttpClient>();
             services.AddSingleton<WebClient>();
             services.AddScoped<AppInitializer>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IChannelService, ChannelService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IPlaylistService, PlaylistService>();
+            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<IVideoPlaylistService, VideoPlaylistService>();
+            services.AddScoped<IVideoService, VideoService>();
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<DtoMappingProfile>();
+                cfg.IgnoreUnmapped();
+            });
+            services.AddSingleton(Mapper.Instance.RegisterMap());
         }
     }
 }

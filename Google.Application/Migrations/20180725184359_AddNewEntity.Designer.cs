@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Google.Application.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180720152006_RefactorRequireId")]
-    partial class RefactorRequireId
+    [Migration("20180725184359_AddNewEntity")]
+    partial class AddNewEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -165,28 +165,6 @@ namespace Google.Application.Migrations
                     b.ToTable("Channels");
                 });
 
-            modelBuilder.Entity("Google.Model.Entities.ChannelCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CategoryId");
-
-                    b.Property<Guid>("ChannelId");
-
-                    b.Property<DateTime>("CreatedDate");
-
-                    b.Property<DateTime>("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ChannelId");
-
-                    b.ToTable("ChannelCategories");
-                });
-
             modelBuilder.Entity("Google.Model.Entities.Comment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -231,6 +209,30 @@ namespace Google.Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ConfigurationValues");
+                });
+
+            modelBuilder.Entity("Google.Model.Entities.Log", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Application");
+
+                    b.Property<string>("Callsite");
+
+                    b.Property<string>("Exception");
+
+                    b.Property<string>("Level");
+
+                    b.Property<string>("Logged");
+
+                    b.Property<string>("Logger");
+
+                    b.Property<string>("Message");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Google.Model.Entities.Playlist", b =>
@@ -317,6 +319,8 @@ namespace Google.Application.Migrations
 
                     b.Property<Guid>("AccountId");
 
+                    b.Property<Guid>("ChannelId");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
@@ -343,6 +347,8 @@ namespace Google.Application.Migrations
 
                     b.HasIndex("AccountId");
 
+                    b.HasIndex("ChannelId");
+
                     b.ToTable("Videos");
                 });
 
@@ -352,6 +358,8 @@ namespace Google.Application.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int>("Order");
 
                     b.Property<Guid>("PlaylistId");
 
@@ -398,6 +406,9 @@ namespace Google.Application.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -411,6 +422,8 @@ namespace Google.Application.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<Guid>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -472,11 +485,16 @@ namespace Google.Application.Migrations
 
                     b.Property<Guid>("RoleId");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<Guid>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -492,6 +510,30 @@ namespace Google.Application.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Google.Model.Entities.ApplicationRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>");
+
+                    b.Property<string>("Description");
+
+                    b.ToTable("ApplicationRole");
+
+                    b.HasDiscriminator().HasValue("ApplicationRole");
+                });
+
+            modelBuilder.Entity("Google.Model.Entities.AccountRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
+
+                    b.Property<Guid?>("RoleId1");
+
+                    b.HasIndex("RoleId1");
+
+                    b.ToTable("AccountRole");
+
+                    b.HasDiscriminator().HasValue("AccountRole");
                 });
 
             modelBuilder.Entity("Google.Model.Entities.Category", b =>
@@ -523,21 +565,8 @@ namespace Google.Application.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Google.Model.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("Channels")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Google.Model.Entities.ChannelCategory", b =>
-                {
-                    b.HasOne("Google.Model.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Google.Model.Entities.Channel", "Channel")
-                        .WithMany()
-                        .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -600,6 +629,11 @@ namespace Google.Application.Migrations
                         .WithMany()
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Google.Model.Entities.Channel", "Channel")
+                        .WithMany("Videos")
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Google.Model.Entities.VideoPlaylist", b =>
@@ -671,6 +705,13 @@ namespace Google.Application.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Google.Model.Entities.AccountRole", b =>
+                {
+                    b.HasOne("Google.Model.Entities.ApplicationRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId1");
                 });
 #pragma warning restore 612, 618
         }

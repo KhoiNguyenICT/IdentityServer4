@@ -6,7 +6,7 @@ using Google.Service.Dtos.Video;
 
 namespace Google.Service.Dtos.Comment
 {
-    public class CommentDto
+    public class CommentDto: BaseDto
     {
         [Required]
         public Guid AccountId { get; set; }

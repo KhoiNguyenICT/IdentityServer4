@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Google.Application.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180720182532_UpdateEntity")]
-    partial class UpdateEntity
+    [Migration("20180725170222_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -354,6 +354,8 @@ namespace Google.Application.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int>("Order");
 
                     b.Property<Guid>("PlaylistId");
 

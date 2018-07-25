@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Google.Common.Cores;
 using Google.Service.Dtos.Tag;
 using Google.Service.Dtos.Video;
 using Google.Service.Interfaces;
@@ -42,6 +44,13 @@ namespace Google.Application.Controllers
         {
             await _videoService.Update(dto);
             return Ok();
+        }
+
+        [HttpGet("channel/{channelId}/videos")]
+        public async Task<IActionResult> Query(Guid channelId, int take = 20, int skip = 0)
+        {
+            var result = await _videoService.Query(channelId, skip, take);
+            return Ok(result);
         }
     }
 }

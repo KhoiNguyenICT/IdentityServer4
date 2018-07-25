@@ -974,6 +974,9 @@
         }
       },
       "Google.Common/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "7.0.1"
+        },
         "runtime": {
           "Google.Common.dll": {}
         },

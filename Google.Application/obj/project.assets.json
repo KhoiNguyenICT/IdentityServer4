@@ -4808,6 +4808,9 @@
       "Google.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "AutoMapper": "7.0.1"
+        },
         "compile": {
           "bin/placeholder/Google.Common.dll": {}
         },
@@ -12689,11 +12692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Application\\Google.Application.csproj",
+      "projectUniqueName": "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Application\\Google.Application.csproj",
       "projectName": "Google.Application",
-      "projectPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Application\\Google.Application.csproj",
+      "projectPath": "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Application\\Google.Application.csproj",
       "packagesPath": "C:\\Users\\KhoiNguyenICT\\.nuget\\packages\\",
-      "outputPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Application\\obj\\",
+      "outputPath": "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12712,14 +12715,14 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Common\\Google.Common.csproj": {
-              "projectPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Common\\Google.Common.csproj"
+            "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Common\\Google.Common.csproj": {
+              "projectPath": "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Common\\Google.Common.csproj"
             },
-            "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Model\\Google.Model.csproj": {
-              "projectPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Model\\Google.Model.csproj"
+            "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Model\\Google.Model.csproj": {
+              "projectPath": "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Model\\Google.Model.csproj"
             },
-            "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Service\\Google.Service.csproj": {
-              "projectPath": "D:\\Job\\CSharp\\Google\\Google.BE\\Google.Service\\Google.Service.csproj"
+            "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Service\\Google.Service.csproj": {
+              "projectPath": "D:\\Job\\CSharp\\Google\\Youtube.BE\\Google.Service\\Google.Service.csproj"
             }
           }
         }

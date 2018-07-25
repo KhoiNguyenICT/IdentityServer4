@@ -16,3 +16,12 @@ D:\Job\CSharp\Google\Google.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Comm
 D:\Job\CSharp\Google\Google.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.AssemblyInfo.cs
 D:\Job\CSharp\Google\Google.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.dll
 D:\Job\CSharp\Google\Google.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.pdb
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\bin\Debug\netcoreapp2.1\Google.Common.deps.json
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\bin\Debug\netcoreapp2.1\Google.Common.dll
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\bin\Debug\netcoreapp2.1\Google.Common.pdb
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.csprojAssemblyReference.cache
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.csproj.CoreCompileInputs.cache
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.AssemblyInfoInputs.cache
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.AssemblyInfo.cs
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.dll
+D:\Job\CSharp\Google\Youtube.BE\Google.Common\obj\Debug\netcoreapp2.1\Google.Common.pdb

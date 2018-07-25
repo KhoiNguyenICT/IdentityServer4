@@ -28,5 +28,7 @@ namespace Google.Model.Entities
         public virtual Category Category { get; set; }
 
         public virtual ICollection<Playlist> Playlists { get; set; }
+
+        public virtual ICollection<Video> Videos { get; set; }
     }
 }
