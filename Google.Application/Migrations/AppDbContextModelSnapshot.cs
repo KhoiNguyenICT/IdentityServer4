@@ -29,6 +29,8 @@ namespace Google.Application.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<Guid?>("CoverImageId");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Email")
@@ -62,7 +64,7 @@ namespace Google.Application.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("ProfileImageUrl");
+                    b.Property<Guid?>("ProfileImageId");
 
                     b.Property<string>("SecurityStamp");
 
@@ -75,6 +77,8 @@ namespace Google.Application.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CoverImageId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -82,7 +86,61 @@ namespace Google.Application.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
+                    b.HasIndex("ProfileImageId");
+
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Google.Model.Entities.ApplicationRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Google.Model.Entities.Asset", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AddressFile")
+                        .IsRequired();
+
+                    b.Property<string>("AssetName")
+                        .IsRequired();
+
+                    b.Property<string>("AssetsPrimaryName")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<double>("FileSize");
+
+                    b.Property<int>("FileType");
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Assets");
                 });
 
             modelBuilder.Entity("Google.Model.Entities.Category", b =>
@@ -100,11 +158,15 @@ namespace Google.Application.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<Guid>("ThumbnailId");
+
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
+
+                    b.HasIndex("ThumbnailId");
 
                     b.ToTable("Categories");
                 });
@@ -136,29 +198,41 @@ namespace Google.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AccountId");
+                    b.Property<Guid>("AvatarId");
 
                     b.Property<Guid>("CategoryId");
+
+                    b.Property<Guid>("CreateById");
 
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("EmailContact");
 
-                    b.Property<string>("HyperLink");
+                    b.Property<string[]>("HyperLinks");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<Guid>("OwnerId");
+
+                    b.Property<Guid>("ThumbnailId");
+
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AvatarId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreateById");
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("ThumbnailId");
 
                     b.ToTable("Channels");
                 });
@@ -252,6 +326,8 @@ namespace Google.Application.Migrations
 
                     b.Property<int>("PlayListStatusType");
 
+                    b.Property<Guid>("ThumbnailId");
+
                     b.Property<DateTime>("UpdatedDate");
 
                     b.Property<Guid?>("VideoId");
@@ -261,6 +337,8 @@ namespace Google.Application.Migrations
                     b.HasIndex("AccountId");
 
                     b.HasIndex("ChannelId");
+
+                    b.HasIndex("ThumbnailId");
 
                     b.HasIndex("VideoId");
 
@@ -327,7 +405,7 @@ namespace Google.Application.Migrations
 
                     b.Property<int>("LikeCount");
 
-                    b.Property<string>("Thumbnail");
+                    b.Property<Guid>("ThumbnailId");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -346,6 +424,8 @@ namespace Google.Application.Migrations
                     b.HasIndex("AccountId");
 
                     b.HasIndex("ChannelId");
+
+                    b.HasIndex("ThumbnailId");
 
                     b.ToTable("Videos");
                 });
@@ -394,34 +474,6 @@ namespace Google.Application.Migrations
                     b.HasIndex("VideoId");
 
                     b.ToTable("VideoTags");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<Guid>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -510,17 +562,6 @@ namespace Google.Application.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Google.Model.Entities.ApplicationRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>");
-
-                    b.Property<string>("Description");
-
-                    b.ToTable("ApplicationRole");
-
-                    b.HasDiscriminator().HasValue("ApplicationRole");
-                });
-
             modelBuilder.Entity("Google.Model.Entities.AccountRole", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
@@ -534,11 +575,27 @@ namespace Google.Application.Migrations
                     b.HasDiscriminator().HasValue("AccountRole");
                 });
 
+            modelBuilder.Entity("Google.Model.Entities.Account", b =>
+                {
+                    b.HasOne("Google.Model.Entities.Asset", "CoverImage")
+                        .WithMany()
+                        .HasForeignKey("CoverImageId");
+
+                    b.HasOne("Google.Model.Entities.Asset", "ProfileImage")
+                        .WithMany()
+                        .HasForeignKey("ProfileImageId");
+                });
+
             modelBuilder.Entity("Google.Model.Entities.Category", b =>
                 {
                     b.HasOne("Google.Model.Entities.Account", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
+                        .WithMany()
+                        .HasForeignKey("ThumbnailId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -557,14 +614,29 @@ namespace Google.Application.Migrations
 
             modelBuilder.Entity("Google.Model.Entities.Channel", b =>
                 {
-                    b.HasOne("Google.Model.Entities.Account", "CreatedBy")
+                    b.HasOne("Google.Model.Entities.Asset", "Avatar")
                         .WithMany()
-                        .HasForeignKey("AccountId")
+                        .HasForeignKey("AvatarId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Google.Model.Entities.Category", "Category")
                         .WithMany("Channels")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Google.Model.Entities.Account", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreateById")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Google.Model.Entities.Account", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
+                        .WithMany()
+                        .HasForeignKey("ThumbnailId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -594,6 +666,11 @@ namespace Google.Application.Migrations
                     b.HasOne("Google.Model.Entities.Channel")
                         .WithMany("Playlists")
                         .HasForeignKey("ChannelId");
+
+                    b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
+                        .WithMany()
+                        .HasForeignKey("ThumbnailId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Google.Model.Entities.Video")
                         .WithMany("Playlists")
@@ -632,6 +709,11 @@ namespace Google.Application.Migrations
                         .WithMany("Videos")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
+                        .WithMany()
+                        .HasForeignKey("ThumbnailId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Google.Model.Entities.VideoPlaylist", b =>
@@ -662,7 +744,7 @@ namespace Google.Application.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>")
+                    b.HasOne("Google.Model.Entities.ApplicationRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -686,7 +768,7 @@ namespace Google.Application.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>")
+                    b.HasOne("Google.Model.Entities.ApplicationRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);

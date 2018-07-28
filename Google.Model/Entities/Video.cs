@@ -13,7 +13,8 @@ namespace Google.Model.Entities
         public string Title { get; set; }
 
         public string Description { get; set; }
-        public string Thumbnail { get; set; }
+
+        
         public int ViewCount { get; set; }
         public int LikeCount { get; set; }
         public int DislikeCount { get; set; }
@@ -22,6 +23,9 @@ namespace Google.Model.Entities
 
         [Required]
         public Guid ChannelId { get; set; }
+
+        [Required]
+        public Guid ThumbnailId { get; set; }
 
         [ForeignKey("ChannelId")]
         public virtual Channel Channel { get; set; }
@@ -33,5 +37,8 @@ namespace Google.Model.Entities
 
         [ForeignKey("AccountId")]
         public virtual Account CreatedBy { get; set; }
+
+        [ForeignKey("ThumbnailId")]
+        public virtual Asset Thumbnail { get; set; }
     }
 }

@@ -13,6 +13,12 @@ namespace Google.Model.Entities
         public string Description { get; set; }
 
         [Required]
+        public Guid ThumbnailId { get; set; }
+
+        [ForeignKey("ThumbnailId")]
+        public virtual Asset Thumbnail { get; set; }
+
+        [Required]
         public Guid AccountId { get; set; }
 
         [ForeignKey("AccountId")]

@@ -15,7 +15,8 @@ namespace Google.Application.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -23,42 +24,29 @@ namespace Google.Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "Assets",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(maxLength: 100, nullable: false),
-                    ProfileImageUrl = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    AssetsPrimaryName = table.Column<string>(nullable: false),
+                    AssetName = table.Column<string>(nullable: false),
+                    AddressFile = table.Column<string>(nullable: false),
+                    FileSize = table.Column<double>(nullable: false),
+                    FileType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_Assets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ConfigurationValues",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true)
@@ -109,6 +97,50 @@ namespace Google.Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(maxLength: 100, nullable: false),
+                    ProfileImageId = table.Column<Guid>(nullable: true),
+                    CoverImageId = table.Column<Guid>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    UpdatedDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Assets_CoverImageId",
+                        column: x => x.CoverImageId,
+                        principalTable: "Assets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Assets_ProfileImageId",
+                        column: x => x.ProfileImageId,
+                        principalTable: "Assets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -154,11 +186,19 @@ namespace Google.Application.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
-                    RoleId = table.Column<Guid>(nullable: false)
+                    RoleId = table.Column<Guid>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    RoleId1 = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId1",
+                        column: x => x.RoleId1,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
@@ -197,11 +237,12 @@ namespace Google.Application.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    ThumbnailId = table.Column<Guid>(nullable: false),
                     AccountId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -213,14 +254,20 @@ namespace Google.Application.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Categories_Assets_ThumbnailId",
+                        column: x => x.ThumbnailId,
+                        principalTable: "Assets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Tags",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     AccountId = table.Column<Guid>(nullable: false)
@@ -237,54 +284,29 @@ namespace Google.Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Videos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    Title = table.Column<string>(maxLength: 255, nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Thumbnail = table.Column<string>(nullable: true),
-                    ViewCount = table.Column<int>(nullable: false),
-                    LikeCount = table.Column<int>(nullable: false),
-                    DislikeCount = table.Column<int>(nullable: false),
-                    VideoDuration = table.Column<TimeSpan>(nullable: false),
-                    VideoStatusType = table.Column<int>(nullable: false),
-                    AccountId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Videos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Videos_AspNetUsers_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Channels",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
+                    ThumbnailId = table.Column<Guid>(nullable: false),
+                    AvatarId = table.Column<Guid>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    HyperLink = table.Column<string>(nullable: true),
-                    AccountId = table.Column<Guid>(nullable: false),
+                    EmailContact = table.Column<string>(nullable: true),
+                    HyperLinks = table.Column<string[]>(nullable: true),
+                    CreateById = table.Column<Guid>(nullable: false),
+                    OwnerId = table.Column<Guid>(nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Channels", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Channels_AspNetUsers_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_Channels_Assets_AvatarId",
+                        column: x => x.AvatarId,
+                        principalTable: "Assets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -293,14 +315,32 @@ namespace Google.Application.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Channels_AspNetUsers_CreateById",
+                        column: x => x.CreateById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Channels_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Channels_Assets_ThumbnailId",
+                        column: x => x.ThumbnailId,
+                        principalTable: "Assets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CategoryTags",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false),
                     TagId = table.Column<Guid>(nullable: false)
@@ -323,28 +363,42 @@ namespace Google.Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VideoTags",
+                name: "Videos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
-                    VideoId = table.Column<Guid>(nullable: false),
-                    TagId = table.Column<Guid>(nullable: false)
+                    Title = table.Column<string>(maxLength: 255, nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ViewCount = table.Column<int>(nullable: false),
+                    LikeCount = table.Column<int>(nullable: false),
+                    DislikeCount = table.Column<int>(nullable: false),
+                    VideoDuration = table.Column<TimeSpan>(nullable: false),
+                    VideoStatusType = table.Column<int>(nullable: false),
+                    ChannelId = table.Column<Guid>(nullable: false),
+                    ThumbnailId = table.Column<Guid>(nullable: false),
+                    AccountId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VideoTags", x => x.Id);
+                    table.PrimaryKey("PK_Videos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VideoTags_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
+                        name: "FK_Videos_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VideoTags_Videos_VideoId",
-                        column: x => x.VideoId,
-                        principalTable: "Videos",
+                        name: "FK_Videos_Channels_ChannelId",
+                        column: x => x.ChannelId,
+                        principalTable: "Channels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Videos_Assets_ThumbnailId",
+                        column: x => x.ThumbnailId,
+                        principalTable: "Assets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -353,8 +407,8 @@ namespace Google.Application.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     AccountId = table.Column<Guid>(nullable: false),
                     ChannelId = table.Column<Guid>(nullable: true),
@@ -388,11 +442,12 @@ namespace Google.Application.Migrations
                 name: "Playlists",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    ThumbnailId = table.Column<Guid>(nullable: false),
                     PlayListStatusType = table.Column<int>(nullable: false),
                     AccountId = table.Column<Guid>(nullable: false),
                     ChannelId = table.Column<Guid>(nullable: true),
@@ -414,6 +469,12 @@ namespace Google.Application.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Playlists_Assets_ThumbnailId",
+                        column: x => x.ThumbnailId,
+                        principalTable: "Assets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Playlists_Videos_VideoId",
                         column: x => x.VideoId,
                         principalTable: "Videos",
@@ -422,11 +483,38 @@ namespace Google.Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VideoTags",
+                columns: table => new
+                {
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    VideoId = table.Column<Guid>(nullable: false),
+                    TagId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VideoTags", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VideoTags_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VideoTags_Videos_VideoId",
+                        column: x => x.VideoId,
+                        principalTable: "Videos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlaylistTags",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     PlaylistId = table.Column<Guid>(nullable: false),
                     TagId = table.Column<Guid>(nullable: false)
@@ -452,8 +540,8 @@ namespace Google.Application.Migrations
                 name: "VideoPlaylists",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     VideoId = table.Column<Guid>(nullable: false),
                     PlaylistId = table.Column<Guid>(nullable: false),
@@ -498,9 +586,19 @@ namespace Google.Application.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId1",
+                table: "AspNetUserRoles",
+                column: "RoleId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_CoverImageId",
+                table: "AspNetUsers",
+                column: "CoverImageId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -514,9 +612,19 @@ namespace Google.Application.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ProfileImageId",
+                table: "AspNetUsers",
+                column: "ProfileImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Categories_AccountId",
                 table: "Categories",
                 column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_ThumbnailId",
+                table: "Categories",
+                column: "ThumbnailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryTags_CategoryId",
@@ -529,14 +637,29 @@ namespace Google.Application.Migrations
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Channels_AccountId",
+                name: "IX_Channels_AvatarId",
                 table: "Channels",
-                column: "AccountId");
+                column: "AvatarId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Channels_CategoryId",
                 table: "Channels",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Channels_CreateById",
+                table: "Channels",
+                column: "CreateById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Channels_OwnerId",
+                table: "Channels",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Channels_ThumbnailId",
+                table: "Channels",
+                column: "ThumbnailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_AccountId",
@@ -562,6 +685,11 @@ namespace Google.Application.Migrations
                 name: "IX_Playlists_ChannelId",
                 table: "Playlists",
                 column: "ChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Playlists_ThumbnailId",
+                table: "Playlists",
+                column: "ThumbnailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Playlists_VideoId",
@@ -597,6 +725,16 @@ namespace Google.Application.Migrations
                 name: "IX_Videos_AccountId",
                 table: "Videos",
                 column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Videos_ChannelId",
+                table: "Videos",
+                column: "ChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Videos_ThumbnailId",
+                table: "Videos",
+                column: "ThumbnailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VideoTags_TagId",
@@ -657,16 +795,19 @@ namespace Google.Application.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Channels");
+                name: "Videos");
 
             migrationBuilder.DropTable(
-                name: "Videos");
+                name: "Channels");
 
             migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Assets");
         }
     }
 }

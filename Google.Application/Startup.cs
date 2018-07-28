@@ -16,6 +16,7 @@ using System.Reflection;
 using AutoMapper;
 using Google.Common.Extensions;
 using Google.Service.Mappers;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Google.Application
 {
@@ -34,6 +35,7 @@ namespace Google.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<FormOptions>(x => x.ValueCountLimit = 2048);
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString(ConfigurationKeys.DefaultConnection), x => x.MigrationsAssembly(_assemblyName)));
 
             services.ConfigureIdentityService(Configuration, _environment);
@@ -88,6 +90,7 @@ namespace Google.Application
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IVideoPlaylistService, VideoPlaylistService>();
             services.AddScoped<IVideoService, VideoService>();
+            services.AddScoped<IAssetService, AssetService>();
 
             Mapper.Initialize(cfg =>
             {

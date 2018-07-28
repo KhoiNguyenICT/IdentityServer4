@@ -4,6 +4,7 @@ using Google.Service.Dtos.Playlist;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Google.Service.Dtos.Asset;
 using Google.Service.Dtos.Channel;
 
 namespace Google.Service.Dtos.Video
@@ -15,7 +16,8 @@ namespace Google.Service.Dtos.Video
         public string Title { get; set; }
 
         public string Description { get; set; }
-        public string Thumbnail { get; set; }
+
+
         public int ViewCount { get; set; }
         public int LikeCount { get; set; }
         public int DislikeCount { get; set; }
@@ -25,6 +27,9 @@ namespace Google.Service.Dtos.Video
         [Required]
         public Guid ChannelId { get; set; }
 
+        [Required]
+        public Guid ThumbnailId { get; set; }
+
         public virtual ChannelDto Channel { get; set; }
 
         public virtual ICollection<PlaylistDto> Playlists { get; set; }
@@ -33,5 +38,7 @@ namespace Google.Service.Dtos.Video
         public Guid AccountId { get; set; }
 
         public virtual AccountDto CreatedBy { get; set; }
+
+        public virtual AssetDto Thumbnail { get; set; }
     }
 }

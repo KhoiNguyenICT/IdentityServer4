@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Application", "Google.Application\Google.Application.csproj", "{498AFDBD-3CA9-44B0-93B4-D39B11ACFD64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Application", "Google.Application\Google.Application.csproj", "{498AFDBD-3CA9-44B0-93B4-D39B11ACFD64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Common", "Google.Common\Google.Common.csproj", "{29B4A52B-5320-49E2-A1B6-F9925F561CA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Common", "Google.Common\Google.Common.csproj", "{29B4A52B-5320-49E2-A1B6-F9925F561CA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Service", "Google.Service\Google.Service.csproj", "{46FF5F61-71C1-402F-9D09-6406F4C9559B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Service", "Google.Service\Google.Service.csproj", "{46FF5F61-71C1-402F-9D09-6406F4C9559B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Model", "Google.Model\Google.Model.csproj", "{07C561FF-5703-4849-A99A-8B74D7C7958A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Model", "Google.Model\Google.Model.csproj", "{07C561FF-5703-4849-A99A-8B74D7C7958A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "C:\Users\KhoiNguyenICT\Desktop\WebApplication\WebApplication.csproj", "{BDACCD45-5346-4F9E-8459-1C0F6F62A3AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{07C561FF-5703-4849-A99A-8B74D7C7958A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07C561FF-5703-4849-A99A-8B74D7C7958A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07C561FF-5703-4849-A99A-8B74D7C7958A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDACCD45-5346-4F9E-8459-1C0F6F62A3AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDACCD45-5346-4F9E-8459-1C0F6F62A3AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDACCD45-5346-4F9E-8459-1C0F6F62A3AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDACCD45-5346-4F9E-8459-1C0F6F62A3AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

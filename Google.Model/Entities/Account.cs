@@ -19,7 +19,15 @@ namespace Google.Model.Entities
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}".Trim();
 
-        public string ProfileImageUrl { get; set; }
+        public Guid? ProfileImageId { get; set; }
+
+        public Guid? CoverImageId { get; set; }
+
+        [ForeignKey("ProfileImageId")]
+        public virtual Asset ProfileImage { get; set; }
+
+        [ForeignKey("CoverImageId")]
+        public virtual Asset CoverImage { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

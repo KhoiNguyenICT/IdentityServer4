@@ -12,7 +12,11 @@ namespace Google.Model.Entities
         public string Name { get; set; }
 
         public string Description { get; set; }
+        public Guid ThumbnailId { get; set; }
         public PlayListStatusType PlayListStatusType { get; set; }
+
+        [ForeignKey("ThumbnailId")]
+        public virtual Asset Thumbnail { get; set; }
 
         [Required]
         public Guid AccountId { get; set; }

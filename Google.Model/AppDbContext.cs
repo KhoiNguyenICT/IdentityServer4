@@ -15,6 +15,7 @@ namespace Google.Model
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<AccountRole> AccountRoles { get; set; }
         public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
+        public virtual DbSet<Asset> Assets { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryTag> CategoryTags { get; set; }
         public virtual DbSet<Channel> Channels { get; set; }
