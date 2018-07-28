@@ -791,7 +791,8 @@
       "System.ValueTuple/4.5.0": {},
       "Google.Common/1.0.0": {
         "dependencies": {
-          "AutoMapper": "7.0.1"
+          "AutoMapper": "7.0.1",
+          "Microsoft.Extensions.Configuration.Abstractions": "2.1.1"
         },
         "runtime": {
           "Google.Common.dll": {}

@@ -18,6 +18,6 @@ namespace Google.Service.Dtos.Asset
         public double FileSize { get; set; }
 
         [Required]
-        public FileType FileType { get; set; }
+        public string ContentType { get; set; }
     }
 }

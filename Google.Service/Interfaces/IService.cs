@@ -6,7 +6,7 @@ using Google.Common.Enums;
 
 namespace Google.Service.Interfaces
 {
-    public interface IService<TDto> : IDisposable
+    public interface IService<TDto>
     {
         Task Add(TDto entity);
 

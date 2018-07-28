@@ -4809,7 +4809,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "AutoMapper": "7.0.1"
+          "AutoMapper": "7.0.1",
+          "Microsoft.Extensions.Configuration.Abstractions": "2.1.1"
         },
         "compile": {
           "bin/placeholder/Google.Common.dll": {}

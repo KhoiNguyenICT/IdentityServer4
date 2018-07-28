@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Google.Common.Interfaces;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Google.Model
 {
@@ -32,6 +37,24 @@ namespace Google.Model
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added);
+
+            foreach (EntityEntry item in modified)
+            {
+                if (item.Entity is IEntity changedOrAddedItem)
+                {
+                    if (item.State == EntityState.Added)
+                    {
+                        changedOrAddedItem.CreatedDate = DateTime.Now;
+                    }
+                    changedOrAddedItem.UpdatedDate = DateTime.Now;
+                }
+            }
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }

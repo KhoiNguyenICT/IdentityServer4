@@ -58,10 +58,5 @@ namespace Google.Service.Implementations
             _context.Set<TEntity>().Remove(mappedEntity);
             await _context.SaveChangesAsync();
         }
-
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
     }
 }

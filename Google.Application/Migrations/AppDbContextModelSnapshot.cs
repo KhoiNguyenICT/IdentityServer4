@@ -130,11 +130,12 @@ namespace Google.Application.Migrations
                     b.Property<string>("AssetsPrimaryName")
                         .IsRequired();
 
+                    b.Property<string>("ContentType")
+                        .IsRequired();
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<double>("FileSize");
-
-                    b.Property<int>("FileType");
 
                     b.Property<DateTime>("UpdatedDate");
 
