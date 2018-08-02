@@ -13,11 +13,11 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Google.Application.Controllers
 {
-    public class AssetsController : GoogleController
+    public class AssetController : GoogleController
     {
         private readonly IAssetService _assetService;
 
-        public AssetsController(IAssetService assetService, IHostingEnvironment environment)
+        public AssetController(IAssetService assetService, IHostingEnvironment environment)
         {
             _assetService = assetService;
         }
