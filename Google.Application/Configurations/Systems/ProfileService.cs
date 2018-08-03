@@ -39,6 +39,8 @@ namespace Google.Application.Configurations.Systems
                 new Claim(JwtClaimTypes.FamilyName, user.LastName),
                 new Claim(JwtClaimTypes.GivenName, user.FirstName),
                 new Claim("fullName", user.FirstName + " " + user.LastName),
+                new Claim("email", user.Email),
+                new Claim("userId", user.Id.ToString())
             });
 
             context.IssuedClaims = claims;
