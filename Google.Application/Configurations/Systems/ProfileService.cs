@@ -40,7 +40,8 @@ namespace Google.Application.Configurations.Systems
                 new Claim(JwtClaimTypes.GivenName, user.FirstName),
                 new Claim("fullName", user.FirstName + " " + user.LastName),
                 new Claim("email", user.Email),
-                new Claim("userId", user.Id.ToString())
+                new Claim("userId", user.Id.ToString()),
+                new Claim("language", user.Language.ToString())
             });
 
             context.IssuedClaims = claims;

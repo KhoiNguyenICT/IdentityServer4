@@ -26,6 +26,7 @@ namespace Google.Model
         public virtual DbSet<Channel> Channels { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<ConfigurationValue> ConfigurationValues { get; set; }
+        public virtual DbSet<EventTracking> EventTrackings { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
         public virtual DbSet<Playlist> Playlists { get; set; }
         public virtual DbSet<PlaylistTag> PlaylistTags { get; set; }

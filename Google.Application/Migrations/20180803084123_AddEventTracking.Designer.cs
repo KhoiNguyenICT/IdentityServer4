@@ -3,15 +3,17 @@ using System;
 using Google.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Google.Application.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180803084123_AddEventTracking")]
+    partial class AddEventTracking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +45,6 @@ namespace Google.Application.Migrations
                         .HasMaxLength(100);
 
                     b.Property<bool>("IsActive");
-
-                    b.Property<int>("Language");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -160,8 +160,6 @@ namespace Google.Application.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
-
-                    b.Property<int>("Order");
 
                     b.Property<Guid>("ThumbnailId");
 

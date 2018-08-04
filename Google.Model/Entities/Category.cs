@@ -25,5 +25,8 @@ namespace Google.Model.Entities
         public virtual Account CreatedBy { get; set; }
 
         public virtual ICollection<Channel> Channels { get; set; }
+
+        [Required]
+        public int Order { get; set; }
     }
 }

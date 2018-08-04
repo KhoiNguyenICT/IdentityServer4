@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Google.Common.Enums;
 
 namespace Google.Model.Entities
 {
@@ -28,6 +29,8 @@ namespace Google.Model.Entities
 
         [ForeignKey("CoverImageId")]
         public virtual Asset CoverImage { get; set; }
+
+        public Language Language { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

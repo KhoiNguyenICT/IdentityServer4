@@ -11,11 +11,11 @@
         },
         "data": {
             "grant_type": "password",
-            "client_id": "icp-web-app",
-            "client_secret": "icp-web-app-secret",
+            "client_id": "google-web-app",
+            "client_secret": "google-web-app-secret",
             "username": email,
             "password": password,
-            "scope": "IcpAPI"
+            "scope": "GoogleAPI"
         }
     }
 

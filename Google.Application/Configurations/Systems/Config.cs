@@ -67,19 +67,19 @@ namespace Google.Application.Configurations.Systems
         {
             return new List<Client> {
                 new Client {
-                    ClientId = "icp-web-app",
-                    ClientName = "ICP Web Application",
+                    ClientId = "google-web-app",
+                    ClientName = "Google Web Application",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     // AllowAccessTokensViaBrowser = true,
                     RequireClientSecret = false,
                     RequireConsent = false,
                     ClientSecrets = new List<Secret>
                     {
-                        new Secret("icp-web-app-secret".Sha256())
+                        new Secret("google-web-app-secret".Sha256())
                     },
                     AllowedScopes = new List<string>
                     {
-                        "IcpAPI",
+                        "GoogleAPI",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
@@ -105,12 +105,12 @@ namespace Google.Application.Configurations.Systems
             {
                 new ApiResource
                 {
-                    Name = "IcpAPI",
-                    DisplayName = "ICP API",
-                    Description = "ICP API Access",
+                    Name = "GoogleAPI",
+                    DisplayName = "Google API",
+                    Description = "Google API Access",
                     UserClaims = new List<string> { ClaimTypes.Role, JwtClaimTypes.Role },
                     ApiSecrets = new List<Secret> {new Secret("scopeSecret".Sha256())},
-                    Scopes = new List<Scope> {new Scope("IcpAPI")}
+                    Scopes = new List<Scope> {new Scope("GoogleAPI")}
                 }
             };
         }
