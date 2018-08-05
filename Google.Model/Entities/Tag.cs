@@ -10,9 +10,9 @@ namespace Google.Model.Entities
         public string Name { get; set; }
 
         [Required]
-        public Guid AccountId { get; set; }
+        public Guid CreateById { get; set; }
 
-        [ForeignKey("AccountId")]
+        [ForeignKey("CreateById")]
         public virtual Account CreatedBy { get; set; }
     }
 }

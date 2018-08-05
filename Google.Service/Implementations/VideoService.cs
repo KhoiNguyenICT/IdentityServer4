@@ -18,7 +18,7 @@ namespace Google.Service.Implementations
         {
         }
 
-        public async Task<QueryResult<VideoDto>> Query(Guid channelId, int page, int pageSize)
+        public async Task<QueryResult<VideoDto>> QueryAsync(Guid channelId, int page, int pageSize)
         {
             var query = _context.Videos.Where(x => x.ChannelId == channelId);
             var totalRow = query.Count();

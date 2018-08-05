@@ -42,6 +42,7 @@ namespace Google.Application.Configurations.Systems
             await _context.Database.MigrateAsync();
             await CreateRoles();
             await CreateDefaultAdminAccount();
+            await CreateDefaultBlankImage();
         }
 
         private string CreatePath(string jsonFile)
@@ -85,6 +86,17 @@ namespace Google.Application.Configurations.Systems
             }
             await _userManager.CreateAsync(account, _configuration["DefaultAdminAccount:Password"]);
             await _userManager.AddToRoleAsync(account, Roles.Administrator);
+        }
+
+        private async Task CreateDefaultBlankImage()
+        {
+            if (!await _context.Assets.AnyAsync())
+            {
+                var input = File.ReadAllText(CreatePath("blank-image.json"));
+                var result = JsonConvert.DeserializeObject<Asset>(input);
+                _context.Assets.AddRange(result);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

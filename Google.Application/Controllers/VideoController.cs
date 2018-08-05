@@ -21,35 +21,35 @@ namespace Google.Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _videoService.Get(id);
+            var result = await _videoService.GetAsync(id);
             return Ok(result);
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(VideoDto dto)
         {
-            await _videoService.Add(dto);
+            await _videoService.AddAsync(dto);
             return Ok();
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _videoService.Remove(id);
+            await _videoService.RemoveAsync(id);
             return Ok();
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(VideoDto dto)
         {
-            await _videoService.Update(dto);
+            await _videoService.UpdateAsync(dto);
             return Ok();
         }
 
         [HttpGet("channel/{channelId}/videos")]
         public async Task<IActionResult> Query(Guid channelId, int take = 20, int skip = 0)
         {
-            var result = await _videoService.Query(channelId, skip, take);
+            var result = await _videoService.QueryAsync(channelId, skip, take);
             return Ok(result);
         }
     }

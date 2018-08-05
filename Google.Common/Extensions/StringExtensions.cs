@@ -6,6 +6,8 @@ namespace Google.Common.Extensions
 {
     public static class StringExtensions
     {
+        public static IConfigurationRoot Configuration { get; set; }
+
         public static string GenerateAssetName(string fileName)
         {
             return Guid.NewGuid().ToString() + "." + fileName.Split('.')[fileName.Split('.').Length - 1];
@@ -15,6 +17,11 @@ namespace Google.Common.Extensions
         {
             var address = ConfigurationKeys.UploadFolder + Guid.NewGuid().ToString() + "." + fileName.Split('.')[fileName.Split('.').Length - 1];
             return address;
+        }
+
+        public static string GetEmptyGuild()
+        {
+            return Configuration[ConfigurationKeys.EmptyGuild];
         }
     }
 }

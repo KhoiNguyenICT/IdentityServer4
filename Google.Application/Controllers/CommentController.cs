@@ -22,28 +22,28 @@ namespace Google.Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _commentService.Get(id);
+            var result = await _commentService.GetAsync(id);
             return Ok(result);
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CommentDto dto)
         {
-            await _commentService.Add(dto);
+            await _commentService.AddAsync(dto);
             return Ok();
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _commentService.Remove(id);
+            await _commentService.RemoveAsync(id);
             return Ok();
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(CommentDto dto)
         {
-            await _commentService.Update(dto);
+            await _commentService.UpdateAsync(dto);
             return Ok();
         }
 

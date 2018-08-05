@@ -6,6 +6,6 @@ namespace Google.Service.Interfaces
 {
     public interface IAssetService: IService<AssetDto>
     {
-        Task<AssetDto> Upload(IFormFile file);
+        Task<AssetDto> UploadAsync(IFormFile file);
     }
 }

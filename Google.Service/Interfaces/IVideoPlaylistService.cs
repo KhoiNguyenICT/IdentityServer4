@@ -6,6 +6,6 @@ namespace Google.Service.Interfaces
 {
     public interface IVideoPlaylistService: IService<VideoPlaylistDto>
     {
-        Task ReOrder(PlaylistReOrderVideoDto playlistReorderVideo);
+        Task ReOrderAsync(PlaylistReOrderVideoDto playlistReorderVideo);
     }
 }

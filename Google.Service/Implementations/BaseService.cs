@@ -21,14 +21,14 @@ namespace Google.Service.Implementations
             _context = context;
         }
 
-        public virtual async Task Add(TDto entity)
+        public virtual async Task AddAsync(TDto entity)
         {
             var mappedEntity = Mapper.Map<TEntity>(entity);
             _context.Set<TEntity>().Add(mappedEntity);
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task<TDto> Get(Guid id)
+        public virtual async Task<TDto> GetAsync(Guid id)
         {
             var entity = await _context.Set<TEntity>()
                 .AsNoTracking()
@@ -37,21 +37,21 @@ namespace Google.Service.Implementations
             return mappedEntity;
         }
 
-        public virtual async Task<List<TDto>> GetAll()
+        public virtual async Task<List<TDto>> GetAllAsync()
         {
             var entities = await _context.Set<TEntity>().AsNoTracking().ToListAsync();
             var mappedEntities = Mapper.Map<List<TDto>>(entities);
             return mappedEntities;
         }
 
-        public virtual async Task Update(TDto entity)
+        public virtual async Task UpdateAsync(TDto entity)
         {
             var mappedEntity = Mapper.Map<TEntity>(entity);
             _context.Entry(mappedEntity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task Remove(Guid id)
+        public virtual async Task RemoveAsync(Guid id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
             var mappedEntity = Mapper.Map<TEntity>(entity);

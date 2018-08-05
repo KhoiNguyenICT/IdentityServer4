@@ -7,7 +7,7 @@ namespace Google.Model.Entities
     public class Comment : BaseEntity
     {
         [Required]
-        public Guid AccountId { get; set; }
+        public Guid CreateById { get; set; }
         public Guid? ChannelId { get; set; }
         public Guid? VideoId { get; set; }
         public string Content { get; set; }

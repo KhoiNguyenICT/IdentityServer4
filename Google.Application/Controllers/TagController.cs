@@ -22,28 +22,28 @@ namespace Google.Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _tagService.Get(id);
+            var result = await _tagService.GetAsync(id);
             return Ok(result);
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(TagDto dto)
         {
-            await _tagService.Add(dto);
+            await _tagService.AddAsync(dto);
             return Ok();
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _tagService.Remove(id);
+            await _tagService.RemoveAsync(id);
             return Ok();
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(TagDto dto)
         {
-            await _tagService.Update(dto);
+            await _tagService.UpdateAsync(dto);
             return Ok();
         }
 

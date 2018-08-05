@@ -14,7 +14,7 @@ namespace Google.Service.Implementations
         {
         }
 
-        public async Task ReOrder(PlaylistReOrderVideoDto playlistReorderVideo)
+        public async Task ReOrderAsync(PlaylistReOrderVideoDto playlistReorderVideo)
         {
             var video = await _context.VideoPlaylists.FirstOrDefaultAsync(x => x.VideoId == playlistReorderVideo.VideoId);
             video.Order = playlistReorderVideo.NewOrder;

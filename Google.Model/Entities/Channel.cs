@@ -11,11 +11,9 @@ namespace Google.Model.Entities
         [StringLength(255)]
         public string Name { get; set; }
 
-        [Required]
-        public Guid ThumbnailId { get; set; }
+        public Guid? ThumbnailId { get; set; }
 
-        [Required]
-        public Guid AvatarId { get; set; }
+        public Guid? AvatarId { get; set; }
 
         public string Description { get; set; }
         public string EmailContact { get; set; }
@@ -24,8 +22,7 @@ namespace Google.Model.Entities
         [Required]
         public Guid CreateById { get; set; }
 
-        [Required]
-        public Guid OwnerId { get; set; }
+        public Guid? OwnerId { get; set; }
 
         [Required]
         public Guid CategoryId { get; set; }

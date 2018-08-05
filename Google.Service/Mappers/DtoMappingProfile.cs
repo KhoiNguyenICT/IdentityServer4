@@ -33,7 +33,7 @@ namespace Google.Service.Mappers
         private void MapBase()
         {
             CreateMap<Account, AccountDto>();
-            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<CategoryTag, CategoryTag>();
             CreateMap<Channel, ChannelDto>();
             CreateMap<Comment, CommentDto>();

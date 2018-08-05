@@ -24,8 +24,7 @@ namespace Google.Model.Entities
         [Required]
         public Guid ChannelId { get; set; }
 
-        [Required]
-        public Guid ThumbnailId { get; set; }
+        public Guid? ThumbnailId { get; set; }
 
         [ForeignKey("ChannelId")]
         public virtual Channel Channel { get; set; }
@@ -33,9 +32,9 @@ namespace Google.Model.Entities
         public virtual ICollection<Playlist> Playlists { get; set; }
 
         [Required]
-        public Guid AccountId { get; set; }
+        public Guid CreateById { get; set; }
 
-        [ForeignKey("AccountId")]
+        [ForeignKey("CreateById")]
         public virtual Account CreatedBy { get; set; }
 
         [ForeignKey("ThumbnailId")]

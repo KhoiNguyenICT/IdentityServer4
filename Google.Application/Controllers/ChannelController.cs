@@ -21,28 +21,28 @@ namespace Google.Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _channelService.Get(id);
+            var result = await _channelService.GetAsync(id);
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create(ChannelDto dto)
+        public async Task<IActionResult> Create([FromBody]ChannelDto dto)
         {
-            await _channelService.Add(dto);
+            await _channelService.AddAsync(dto);
             return Ok();
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _channelService.Remove(id);
+            await _channelService.RemoveAsync(id);
             return Ok();
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(ChannelDto dto)
         {
-            await _channelService.Update(dto);
+            await _channelService.UpdateAsync(dto);
             return Ok();
         }
 

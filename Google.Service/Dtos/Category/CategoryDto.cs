@@ -10,21 +10,11 @@ namespace Google.Service.Dtos.Category
 {
     public class CategoryDto : BaseDto
     {
-        [Required]
-        [StringLength(255)]
         public string Name { get; set; }
-        public string Description { get; set; }
 
-        [Required]
-        public Guid ThumbnailId { get; set; }
+        public Guid? ParentId { get; set; }
+        public CategoryDto Parent { get; set; }
 
-        public virtual AssetDto Thumbnail { get; set; }
-
-        [Required]
-        public Guid AccountId { get; set; }
-
-        public virtual AccountDto CreatedBy { get; set; }
-
-        public virtual ICollection<ChannelDto> Channels { get; set; }
+        public ICollection<CategoryDto> Children { get; set; }
     }
 }

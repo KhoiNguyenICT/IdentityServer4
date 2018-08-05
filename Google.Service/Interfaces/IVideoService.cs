@@ -7,6 +7,6 @@ namespace Google.Service.Interfaces
 {
     public interface IVideoService: IService<VideoDto>
     {
-        Task<QueryResult<VideoDto>> Query(Guid channelId, int page, int pageSize);
+        Task<QueryResult<VideoDto>> QueryAsync(Guid channelId, int page, int pageSize);
     }
 }

@@ -8,14 +8,14 @@ namespace Google.Service.Interfaces
 {
     public interface IService<TDto>
     {
-        Task Add(TDto entity);
+        Task AddAsync(TDto entity);
 
-        Task<TDto> Get(Guid id);
+        Task<TDto> GetAsync(Guid id);
 
-        Task<List<TDto>> GetAll();
+        Task<List<TDto>> GetAllAsync();
 
-        Task Update(TDto entity);
+        Task UpdateAsync(TDto entity);
 
-        Task Remove(Guid id);
+        Task RemoveAsync(Guid id);
     }
 }

@@ -7,7 +7,7 @@ namespace Google.Service.Dtos.Tag
     {
         public string Name { get; set; }
 
-        public Guid AccountId { get; set; }
+        public Guid CreateById { get; set; }
 
         public virtual AccountDto CreatedBy { get; set; }
     }

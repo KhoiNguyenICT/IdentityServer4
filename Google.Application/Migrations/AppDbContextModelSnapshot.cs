@@ -151,27 +151,17 @@ namespace Google.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AccountId");
-
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<int>("Order");
-
-                    b.Property<Guid>("ThumbnailId");
+                    b.Property<Guid?>("ParentId");
 
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("ThumbnailId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -203,7 +193,7 @@ namespace Google.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AvatarId");
+                    b.Property<Guid?>("AvatarId");
 
                     b.Property<Guid>("CategoryId");
 
@@ -221,9 +211,9 @@ namespace Google.Application.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<Guid>("OwnerId");
+                    b.Property<Guid?>("OwnerId");
 
-                    b.Property<Guid>("ThumbnailId");
+                    b.Property<Guid?>("ThumbnailId");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -247,11 +237,13 @@ namespace Google.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AccountId");
+                    b.Property<Guid?>("AccountId");
 
                     b.Property<Guid?>("ChannelId");
 
                     b.Property<string>("Content");
+
+                    b.Property<Guid>("CreateById");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -335,9 +327,9 @@ namespace Google.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AccountId");
-
                     b.Property<Guid?>("ChannelId");
+
+                    b.Property<Guid>("CreateById");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -349,7 +341,7 @@ namespace Google.Application.Migrations
 
                     b.Property<int>("PlayListStatusType");
 
-                    b.Property<Guid>("ThumbnailId");
+                    b.Property<Guid?>("ThumbnailId");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -357,9 +349,9 @@ namespace Google.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
-
                     b.HasIndex("ChannelId");
+
+                    b.HasIndex("CreateById");
 
                     b.HasIndex("ThumbnailId");
 
@@ -395,7 +387,7 @@ namespace Google.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AccountId");
+                    b.Property<Guid>("CreateById");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -406,7 +398,7 @@ namespace Google.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("CreateById");
 
                     b.ToTable("Tags");
                 });
@@ -416,9 +408,9 @@ namespace Google.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AccountId");
-
                     b.Property<Guid>("ChannelId");
+
+                    b.Property<Guid>("CreateById");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -428,7 +420,7 @@ namespace Google.Application.Migrations
 
                     b.Property<int>("LikeCount");
 
-                    b.Property<Guid>("ThumbnailId");
+                    b.Property<Guid?>("ThumbnailId");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -444,9 +436,9 @@ namespace Google.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
-
                     b.HasIndex("ChannelId");
+
+                    b.HasIndex("CreateById");
 
                     b.HasIndex("ThumbnailId");
 
@@ -611,15 +603,9 @@ namespace Google.Application.Migrations
 
             modelBuilder.Entity("Google.Model.Entities.Category", b =>
                 {
-                    b.HasOne("Google.Model.Entities.Account", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
-                        .WithMany()
-                        .HasForeignKey("ThumbnailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Google.Model.Entities.Category", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("Google.Model.Entities.CategoryTag", b =>
@@ -639,11 +625,10 @@ namespace Google.Application.Migrations
                 {
                     b.HasOne("Google.Model.Entities.Asset", "Avatar")
                         .WithMany()
-                        .HasForeignKey("AvatarId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AvatarId");
 
                     b.HasOne("Google.Model.Entities.Category", "Category")
-                        .WithMany("Channels")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -654,21 +639,18 @@ namespace Google.Application.Migrations
 
                     b.HasOne("Google.Model.Entities.Account", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OwnerId");
 
                     b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
                         .WithMany()
-                        .HasForeignKey("ThumbnailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ThumbnailId");
                 });
 
             modelBuilder.Entity("Google.Model.Entities.Comment", b =>
                 {
                     b.HasOne("Google.Model.Entities.Account", "CommentBy")
                         .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AccountId");
 
                     b.HasOne("Google.Model.Entities.Channel", "Channel")
                         .WithMany()
@@ -681,19 +663,18 @@ namespace Google.Application.Migrations
 
             modelBuilder.Entity("Google.Model.Entities.Playlist", b =>
                 {
-                    b.HasOne("Google.Model.Entities.Account", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Google.Model.Entities.Channel")
                         .WithMany("Playlists")
                         .HasForeignKey("ChannelId");
 
+                    b.HasOne("Google.Model.Entities.Account", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreateById")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
                         .WithMany()
-                        .HasForeignKey("ThumbnailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ThumbnailId");
 
                     b.HasOne("Google.Model.Entities.Video")
                         .WithMany("Playlists")
@@ -717,26 +698,25 @@ namespace Google.Application.Migrations
                 {
                     b.HasOne("Google.Model.Entities.Account", "CreatedBy")
                         .WithMany()
-                        .HasForeignKey("AccountId")
+                        .HasForeignKey("CreateById")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Google.Model.Entities.Video", b =>
                 {
-                    b.HasOne("Google.Model.Entities.Account", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Google.Model.Entities.Channel", "Channel")
                         .WithMany("Videos")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("Google.Model.Entities.Account", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreateById")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Google.Model.Entities.Asset", "Thumbnail")
                         .WithMany()
-                        .HasForeignKey("ThumbnailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ThumbnailId");
                 });
 
             modelBuilder.Entity("Google.Model.Entities.VideoPlaylist", b =>

@@ -30,6 +30,7 @@ namespace Google.Model.Entities
         [ForeignKey("CoverImageId")]
         public virtual Asset CoverImage { get; set; }
 
+        [Required]
         public Language Language { get; set; }
 
         [Required]

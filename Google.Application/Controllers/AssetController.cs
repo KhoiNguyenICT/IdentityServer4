@@ -25,7 +25,7 @@ namespace Google.Application.Controllers
         [HttpPost("upload")]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            var result = await _assetService.Upload(file);
+            var result = await _assetService.UploadAsync(file);
             return Ok(result);
         }
     }

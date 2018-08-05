@@ -19,7 +19,7 @@ namespace Google.Service.Dtos.Playlist
         public virtual AssetDto Thumbnail { get; set; }
 
         [Required]
-        public Guid AccountId { get; set; }
+        public Guid CreateById { get; set; }
 
         public AccountDto CreatedBy { get; set; }
     }

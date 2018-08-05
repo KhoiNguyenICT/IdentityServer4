@@ -25,28 +25,28 @@ namespace Google.Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _playlistService.Get(id);
+            var result = await _playlistService.GetAsync(id);
             return Ok(result);
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(PlaylistDto dto)
         {
-            await _playlistService.Add(dto);
+            await _playlistService.AddAsync(dto);
             return Ok();
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _playlistService.Remove(id);
+            await _playlistService.RemoveAsync(id);
             return Ok();
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(PlaylistDto dto)
         {
-            await _playlistService.Update(dto);
+            await _playlistService.UpdateAsync(dto);
             return Ok();
         }
 
@@ -59,7 +59,7 @@ namespace Google.Application.Controllers
         [HttpPut("reOrder")]
         public async Task<IActionResult> ReOrderVideo(PlaylistReOrderVideoDto playlistReOrderVideoDto)
         {
-            await _videoPlaylistService.ReOrder(playlistReOrderVideoDto);
+            await _videoPlaylistService.ReOrderAsync(playlistReOrderVideoDto);
             return Ok();
         }
     }

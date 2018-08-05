@@ -18,7 +18,7 @@ namespace Google.Service.Implementations
             _environment = environment;
         }
 
-        public async Task<AssetDto> Upload(IFormFile file)
+        public async Task<AssetDto> UploadAsync(IFormFile file)
         {
             if (file != null)
             {
@@ -31,7 +31,7 @@ namespace Google.Service.Implementations
                 {
                     file.CopyTo(filestream);
                     filestream.Flush();
-                    await this.Add(assetDto);
+                    await this.AddAsync(assetDto);
                     return assetDto;
                 }
             }
