@@ -91,6 +91,7 @@ namespace Google.Application
             services.AddScoped<IVideoPlaylistService, VideoPlaylistService>();
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<IAssetService, AssetService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             Mapper.Initialize(cfg =>
             {

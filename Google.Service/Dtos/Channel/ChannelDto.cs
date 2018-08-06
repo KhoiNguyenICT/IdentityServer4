@@ -15,10 +15,8 @@ namespace Google.Service.Dtos.Channel
         [StringLength(255)]
         public string Name { get; set; }
 
-        [Required]
         public Guid ThumbnailId { get; set; }
 
-        [Required]
         public Guid AvatarId { get; set; }
 
         public string Description { get; set; }
