@@ -94,7 +94,7 @@ namespace Google.Application.Configurations.Systems
             {
                 var input = File.ReadAllText(CreatePath("blank-image.json"));
                 var result = JsonConvert.DeserializeObject<Asset>(input);
-                _context.Assets.AddRange(result);
+                _context.Assets.Add(result);
                 await _context.SaveChangesAsync();
             }
         }

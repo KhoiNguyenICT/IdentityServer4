@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using AutoMapper;
 using Google.Common.Extensions;
 using Google.Model;
 using Google.Model.Entities;
@@ -7,6 +8,7 @@ using Google.Service.Dtos.Asset;
 using Google.Service.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Google.Service.Implementations
 {
@@ -37,6 +39,12 @@ namespace Google.Service.Implementations
             }
 
             return null;
+        }
+
+        public async Task<AssetDto> GetDefaultAsset()
+        {
+            var asset = await _context.Assets.FirstOrDefaultAsync();
+            return Mapper.Map<AssetDto>(asset);
         }
     }
 }
