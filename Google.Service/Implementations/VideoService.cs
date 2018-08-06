@@ -18,20 +18,9 @@ namespace Google.Service.Implementations
         {
         }
 
-        public async Task<QueryResult<VideoDto>> QueryAsync(Guid channelId, int page, int pageSize)
+        public Task<QueryResult<VideoDto>> QueryAsync(Guid channelId, int page, int pageSize)
         {
-            var query = _context.Videos.Where(x => x.ChannelId == channelId);
-            var totalRow = query.Count();
-            var result = await query.OrderByDescending(x => x.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-            var data = result.To<List<VideoDto>>();
-            var paginationSet = new QueryResult<VideoDto>()
-            {
-                Results = data,
-                CurrentPage = page,
-                RowCount = totalRow,
-                PageSize = pageSize
-            };
-            return paginationSet;
+            throw new NotImplementedException();
         }
     }
 }

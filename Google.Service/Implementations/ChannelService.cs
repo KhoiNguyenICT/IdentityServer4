@@ -1,14 +1,13 @@
-﻿using Google.Model;
+﻿using Google.Common.Cores;
+using Google.Common.Extensions;
+using Google.Model;
 using Google.Model.Entities;
-using Google.Service.Dtos;
+using Google.Service.Dtos.Channel;
 using Google.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Google.Service.Dtos.Channel;
 
 namespace Google.Service.Implementations
 {
@@ -16,6 +15,17 @@ namespace Google.Service.Implementations
     {
         public ChannelService(AppDbContext context) : base(context)
         {
+        }
+
+        public async Task<QueryResult<ChannelDto>> Query(int skip, int take)
+        {
+            var channels = _context.Channels.Include(x => x.Category);
+            var result = await channels.Skip(skip).Take(take).ToListAsync();
+            return new QueryResult<ChannelDto>()
+            {
+                Count = channels.Count(),
+                Items = result.To<IEnumerable<ChannelDto>>()
+            };
         }
     }
 }

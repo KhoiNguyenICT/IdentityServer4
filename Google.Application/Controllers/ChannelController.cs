@@ -29,8 +29,8 @@ namespace Google.Application.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody]ChannelDto dto)
         {
-            dto.AvatarId = dto.AvatarId == Guid.Empty ? new Guid(_configuration.GetConnectionString(ConfigurationKeys.DefaultAssetId)) : dto.AvatarId;
-            dto.ThumbnailId = dto.ThumbnailId == Guid.Empty ? new Guid(_configuration.GetConnectionString(ConfigurationKeys.DefaultAssetId)) : dto.ThumbnailId;
+            dto.AvatarId = dto.AvatarId == Guid.Empty ? new Guid(_configuration[ConfigurationKeys.DefaultAssetId]) : dto.AvatarId;
+            dto.ThumbnailId = dto.ThumbnailId == Guid.Empty ? new Guid(_configuration[ConfigurationKeys.DefaultAssetId]) : dto.ThumbnailId;
             await _channelService.AddAsync(dto);
             return Ok();
         }
@@ -52,7 +52,8 @@ namespace Google.Application.Controllers
         [HttpGet("query")]
         public async Task<IActionResult> Query(int take = 20, int skip = 0)
         {
-            return Ok();
+            var result = await _channelService.Query(skip, take);
+            return Ok(result);
         }
     }
 }
