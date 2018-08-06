@@ -14,6 +14,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using AutoMapper;
+using Google.Application.Extensions;
 using Google.Common.Extensions;
 using Google.Service.Mappers;
 using Microsoft.AspNetCore.Http.Features;
@@ -59,6 +60,7 @@ namespace Google.Application
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            app.UseImageResizer();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseIdentityServer();
@@ -80,6 +82,7 @@ namespace Google.Application
 
         public void ConfigIoc(IServiceCollection services)
         {
+            services.AddImageResizer();
             services.AddSingleton<HttpClient>();
             services.AddSingleton<WebClient>();
             services.AddScoped<AppInitializer>();
